@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parti Hediye Sepeti | Hızlı Sipariş Formu</title>
+  <style>
+    :root {
+      --bg: #f5f6fb;
+      --surface: #ffffff;
+      --surface-2: #fff6f8;
+      --text: #1f2430;
+      --muted: #6b7280;
+      --primary: #e8436b;
+      --primary-dark: #cf2f58;
+      --secondary: #ffb703;
+      --green: #1fa855;
+      --border: #e7e9f0;
+      --shadow: 0 10px 30px rgba(20, 24, 40, 0.08);
+      --radius: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #fff7fa 0%, #f5f6fb 18%, #f5f6fb 100%);
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+    button, input, textarea, select { font: inherit; }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 20px 16px 120px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #fff 0%, #fff7f9 55%, #fff3dd 100%);
+      border: 1px solid rgba(232, 67, 107, 0.08);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .brand-title {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-sub {
+      font-size: 13px;
+      color: #b77900;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #394150;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      background: rgba(255,255,255,0.72);
+      border-radius: 22px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+
+    .hero-copy h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 58ch;
+    }
+
+    .hero-panel {
+      background: var(--surface);
+      border-radius: 22px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      display: grid;
+      gap: 10px;
+      align-content: center;
+    }
+
+    .mini-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #fafbff;
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .mini-stat strong { font-size: 15px; }
+
+    .search-box {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 15px 16px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-box button {
+      border: 0;
+      border-radius: 16px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      padding: 0 18px;
+      cursor: pointer;
+    }
+
+    .category-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 2px 2px 6px;
+      margin: 16px 0 22px;
+    }
+
+    .cat-btn {
+      white-space: nowrap;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: #374151;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .cat-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(232, 67, 107, 0.22);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .product {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-media {
+      aspect-ratio: 1 / 1;
+      background: #f0f2f8;
+      overflow: hidden;
+    }
+
+    .product-media img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-body {
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .product-top {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: start;
+    }
+
+    .product-title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    .product-code {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .price-box {
+      text-align: right;
+      min-width: 92px;
+    }
+
+    .price {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .category-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #fff6f8;
+      color: var(--primary);
+      border: 1px solid #ffd4df;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .qty-bar {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .qty-bar input {
+      width: 100%;
+      padding: 12px 8px;
+      text-align: center;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-weight: 700;
+    }
+
+    .line-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: #fafbff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      font-size: 20px;
+    }
+
+    .summary-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .summary-item {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fafbff;
+      padding: 10px 12px;
+      display: grid;
+      gap: 2px;
+      font-size: 14px;
+    }
+
+    .summary-item strong { font-size: 14px; }
+
+    .empty {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .total-box {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .field { margin-bottom: 11px; }
+    .field:last-child { margin-bottom: 0; }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: #fff;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .field textarea { min-height: 84px; resize: vertical; }
+
+    .actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 16px;
+      padding: 15px 16px;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-light {
+      background: #fff;
+      color: #1f2430;
+      border: 1px solid var(--border);
+    }
+
+    .helper {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .footer-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 15;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      padding: 10px 14px;
+      display: none;
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .footer-total {
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .footer-btn {
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: 0;
+      background: var(--green);
+      color: #fff;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap { padding: 14px 12px 110px; }
+      .hero { padding: 14px; border-radius: 22px; }
+      .brand-title { font-size: 24px; }
+      .hero-copy h1 { font-size: 27px; }
+      .products { grid-template-columns: 1fr; }
+      .search-box { grid-template-columns: 1fr; }
+      .footer-bar { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="topline">
+        <div class="brand">
+          <div class="brand-title">Parti Hediye Sepeti</div>
+          <div class="brand-sub">Toptan Hızlı Sipariş Formu</div>
+        </div>
+        <div class="hero-badges">
+          <div class="badge">5 Kategori</div>
+          <div class="badge">Hızlı Sepet</div>
+          <div class="badge">WhatsApp Sipariş</div>
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>Ürünü seç, adedi gir, toplamı gör ve siparişi saniyeler içinde gönder.</h1>
+          <p>Bu sayfa tamamen sana göre düzenlenebilir. Ürün görsellerini, fiyatları, kategorileri, müşteri alanlarını ve sipariş butonlarını istediğin gibi değiştirebiliriz. Şimdilik örnek ürünlerle hazırlandı.</p>
+          <div class="search-box">
+            <input id="searchInput" type="text" placeholder="Ürün ara... örn: ayıcık, balon, mum" />
+            <button type="button" id="scrollProductsBtn">Ürünlere Git</button>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="mini-stat"><span>Toplam kategori</span><strong id="statCategory">5</strong></div>
+          <div class="mini-stat"><span>Toplam ürün</span><strong id="statProduct">0</strong></div>
+          <div class="mini-stat"><span>Seçilen ürün</span><strong id="statSelected">0</strong></div>
+          <div class="mini-stat"><span>Sepet tutarı</span><strong id="statTotal">0 TL</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="category-strip" id="categoryStrip"></div>
+
+    <div class="layout">
+      <main>
+        <div class="section-head" id="productsSection">
+          <div>
+            <h2>Ürün Listesi</h2>
+            <p>İstediğin ürünlerin adetini yaz. Toplam tutar otomatik hesaplanır.</p>
+          </div>
+        </div>
+
+        <div class="products" id="productGrid"></div>
+      </main>
+
+      <aside class="sidebar">
+        <div class="panel">
+          <h3>Sipariş Özeti</h3>
+          <p class="empty" id="emptyState">Henüz ürün seçilmedi.</p>
+          <ul class="summary-list" id="summaryList"></ul>
+          <div class="total-box">
+            <span>Toplam</span>
+            <span id="grandTotal">0 TL</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Müşteri Bilgileri</h3>
+          <div class="field">
+            <label for="nameInput">Ad Soyad / Firma</label>
+            <input id="nameInput" type="text" placeholder="Firma adı veya ad soyad" />
+          </div>
+          <div class="field">
+            <label for="phoneInput">Telefon</label>
+            <input id="phoneInput" type="tel" placeholder="05xx xxx xx xx" />
+          </div>
+          <div class="field">
+            <label for="cityInput">Şehir</label>
+            <input id="cityInput" type="text" placeholder="Şehir" />
+          </div>
+          <div class="field">
+            <label for="noteInput">Sipariş Notu</label>
+            <textarea id="noteInput" placeholder="Kargo, teslimat veya diğer notlar"></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" id="sendWhatsappBtn" type="button">Siparişi WhatsApp ile Gönder</button>
+            <button class="btn btn-secondary" id="copyOrderBtn" type="button">Siparişi Metin Olarak Kopyala</button>
+            <button class="btn btn-light" id="clearCartBtn" type="button">Tüm Seçimleri Temizle</button>
+          </div>
+          <div class="helper">Kod içindeki WhatsApp numarasını değiştirmen yeterli. Ürünleri de kendi fotoğrafların ve fiyatlarınla güncelleyebiliriz.</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <div class="footer-inner">
+      <div class="footer-total">Toplam: <span id="mobileTotal">0 TL</span></div>
+      <button class="footer-btn" id="mobileSendBtn" type="button">Sipariş Gönder</button>
+    </div>
+  </div>
+
+  <script>
+    const whatsappNumber = '905555555555';
+
+    const productData = [
+      { id: 1, code: 'SET001', name: 'Ayıcık Parti Seti', category: 'Parti Setleri', price: 162, image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80' },
+      { id: 2, code: 'SET002', name: 'Unicorn Parti Seti', category: 'Parti Setleri', price: 169, image: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1200&q=80' },
+      { id: 3, code: 'SET003', name: 'Safari Parti Seti', category: 'Parti Setleri', price: 155, image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=80' },
+      { id: 4, code: 'BAL001', name: 'Renkli Balon Paket', category: 'Balonlar', price: 35, image: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1200&q=80' },
+      { id: 5, code: 'BAL002', name: 'Yıldız Folyo Balon', category: 'Balonlar', price: 25, image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80' },
+      { id: 6, code: 'BAL003', name: 'Kalp Folyo Balon', category: 'Balonlar', price: 25, image: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1200&q=80' },
+      { id: 7, code: 'MUM001', name: 'Doğum Günü Mum Seti', category: 'Mumlar', price: 30, image: 'https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=1200&q=80' },
+      { id: 8, code: 'MUM002', name: 'Renkli Pasta Mumu', category: 'Mumlar', price: 18, image: 'https://images.unsplash.com/photo-1551892644-51a6e2e8fc65?auto=format&fit=crop&w=1200&q=80' },
+      { id: 9, code: 'AKS001', name: 'Parti Tacı', category: 'Aksesuarlar', price: 20, image: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1200&q=80' },
+      { id: 10, code: 'AKS002', name: 'Konfeti Seti', category: 'Aksesuarlar', price: 28, image: 'https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=1200&q=80' },
+      { id: 11, code: 'MINI001', name: 'Mini Doğum Günü Seti', category: 'Mini Setler', price: 99, image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80' },
+      { id: 12, code: 'MINI002', name: 'Mini Balon Seti', category: 'Mini Setler', price: 99, image: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1200&q=80' }
+    ];
+
+    const categories = ['Tümü', ...new Set(productData.map(item => item.category))];
+    let activeCategory = 'Tümü';
+
+    const categoryStrip = document.getElementById('categoryStrip');
+    const productGrid = document.getElementById('productGrid');
+    const summaryList = document.getElementById('summaryList');
+    const emptyState = document.getElementById('emptyState');
+    const grandTotal = document.getElementById('grandTotal');
+    const mobileTotal = document.getElementById('mobileTotal');
+    const searchInput = document.getElementById('searchInput');
+
+    const statCategory = document.getElementById('statCategory');
+    const statProduct = document.getElementById('statProduct');
+    const statSelected = document.getElementById('statSelected');
+    const statTotal = document.getElementById('statTotal');
+
+    statCategory.textContent = categories.length - 1;
+    statProduct.textContent = productData.length;
+
+    function formatTL(num) {
+      return new Intl.NumberFormat('tr-TR').format(num) + ' TL';
+    }
+
+    function getQty(id) {
+      return Number(localStorage.getItem('qty_' + id) || 0);
+    }
+
+    function setQty(id, value) {
+      localStorage.setItem('qty_' + id, value);
+    }
+
+    function clearAllQty() {
+      productData.forEach(item => localStorage.removeItem('qty_' + item.id));
+    }
+
+    function renderCategories() {
+      categoryStrip.innerHTML = '';
+      categories.forEach(category => {
+        const btn = document.createElement('button');
+        btn.className = 'cat-btn' + (category === activeCategory ? ' active' : '');
+        btn.textContent = category;
+        btn.type = 'button';
+        btn.onclick = () => {
+          activeCategory = category;
+          renderCategories();
+          renderProducts();
+        };
+        categoryStrip.appendChild(btn);
+      });
+    }
+
+    function filteredProducts() {
+      const q = searchInput.value.trim().toLowerCase();
+      return productData.filter(item => {
+        const categoryOK = activeCategory === 'Tümü' || item.category === activeCategory;
+        const searchOK = !q || item.name.toLowerCase().includes(q) || item.code.toLowerCase().includes(q) || item.category.toLowerCase().includes(q);
+        return categoryOK && searchOK;
+      });
+    }
+
+    function renderProducts() {
+      productGrid.innerHTML = '';
+      filteredProducts().forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'product';
+        card.innerHTML = `
+          <div class="product-media"><img src="${item.image}" alt="${item.name}"></div>
+          <div class="product-body">
+            <div class="product-top">
+              <div>
+                <h3 class="product-title">${item.name}</h3>
+                <div class="product-code">Kod: ${item.code}</div>
+              </div>
+              <div class="price-box">
+                <div class="price">${formatTL(item.price)}</div>
+              </div>
+            </div>
+            <div class="category-pill">${item.category}</div>
+            <div class="qty-bar">
+              <input class="qty-input" data-id="${item.id}" type="number" min="0" step="1" value="${getQty(item.id)}" />
+              <div class="line-total"><span>Satır Tutarı</span><strong id="line-${item.id}">${formatTL(getQty(item.id) * item.price)}</strong></div>
+            </div>
+          </div>
+        `;
+        productGrid.appendChild(card);
+      });
+
+      document.querySelectorAll('.qty-input').forEach(input => {
+        input.addEventListener('input', e => {
+          const id = Number(e.target.dataset.id);
+          const value = Math.max(0, Number(e.target.value || 0));
+          e.target.value = value;
+          setQty(id, value);
+          updateUI();
+        });
+      });
+    }
+
+    function selectedItems() {
+      return productData.map(item => {
+        const qty = getQty(item.id);
+        return { ...item, qty, lineTotal: qty * item.price };
+      }).filter(item => item.qty > 0);
+    }
+
+    function updateSummary() {
+      const items = selectedItems();
+      summaryList.innerHTML = '';
+      let total = 0;
+
+      productData.forEach(item => {
+        const line = document.getElementById('line-' + item.id);
+        if (line) line.textContent = formatTL(getQty(item.id) * item.price);
+      });
+
+      items.forEach(item => {
+        total += item.lineTotal;
+        const li = document.createElement('li');
+        li.className = 'summary-item';
+        li.innerHTML = `<strong>${item.name}</strong><span>${item.qty} adet × ${formatTL(item.price)} = ${formatTL(item.lineTotal)}</span>`;
+        summaryList.appendChild(li);
+      });
+
+      emptyState.style.display = items.length ? 'none' : 'block';
+      grandTotal.textContent = formatTL(total);
+      mobileTotal.textContent = formatTL(total);
+      statSelected.textContent = items.length;
+      statTotal.textContent = formatTL(total);
+    }
+
+    function updateUI() {
+      updateSummary();
+    }
+
+    function orderText(raw = false) {
+      const items = selectedItems();
+      if (!items.length) {
+        alert('Lütfen en az 1 ürün seç.');
+        return null;
+      }
+
+      const name = document.getElementById('nameInput').value.trim() || '-';
+      const phone = document.getElementById('phoneInput').value.trim() || '-';
+      const city = document.getElementById('cityInput').value.trim() || '-';
+      const note = document.getElementById('noteInput').value.trim() || '-';
+
+      let total = 0;
+      const lines = items.map(item => {
+        total += item.lineTotal;
+        return `- ${item.code} | ${item.name} | ${item.qty} adet | ${formatTL(item.lineTotal)}`;
+      }).join('\n');
+
+      const text = `Yeni Sipariş\n\nAd Soyad / Firma: ${name}\nTelefon: ${phone}\nŞehir: ${city}\n\nÜrünler:\n${lines}\n\nToplam: ${formatTL(total)}\n\nNot: ${note}`;
+      return raw ? text : encodeURIComponent(text);
+    }
+
+    function sendWhatsapp() {
+      const text = orderText(false);
+      if (!text) return;
+      window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
+    }
+
+    document.getElementById('sendWhatsappBtn').addEventListener('click', sendWhatsapp);
+    document.getElementById('mobileSendBtn').addEventListener('click', sendWhatsapp);
+
+    document.getElementById('copyOrderBtn').addEventListener('click', async () => {
+      const text = orderText(true);
+      if (!text) return;
+      await navigator.clipboard.writeText(text);
+      alert('Sipariş metni kopyalandı.');
+    });
+
+    document.getElementById('clearCartBtn').addEventListener('click', () => {
+      clearAllQty();
+      renderProducts();
+      updateUI();
+    });
+
+    document.getElementById('scrollProductsBtn').addEventListener('click', () => {
+      document.getElementById('productsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    searchInput.addEventListener('input', renderProducts);
+
+    renderCategories();
+    renderProducts();
+    updateUI();
+  </script>
+</body>
+</html>
